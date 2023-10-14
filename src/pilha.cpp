@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string.h>
 #include "pilha.hpp"
 
 using namespace std;
@@ -71,3 +72,4 @@ template <class T> Pilha<T>::~Pilha() {
 
 template class Pilha<char>;
 template class Pilha<int>;
+template class Pilha<std::string>;
