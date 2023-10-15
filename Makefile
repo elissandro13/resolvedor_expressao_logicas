@@ -4,8 +4,8 @@ SRC = src
 OBJ = obj
 INC = include
 BIN = bin
-OBJS = $(OBJ)/pilha.o $(OBJ)/expressao.o $(OBJ)/main.o 
-HDRS = $(INC)/pilha.hpp $(INC)/expressao.hpp 
+OBJS = $(OBJ)/pilha.o $(OBJ)/expressao.o $(OBJ)/arvoreBinaria.o $(OBJ)/no.o $(OBJ)/satisfatibilidade.o $(OBJ)/main.o 
+HDRS = $(INC)/pilha.hpp $(INC)/expressao.hpp $(INC)/arvoreBinaria.hpp $(INC)/no.hpp $(INC)/satisfatibilidade.hpp
 CFLAGS = -g -Wall -c -I$(INC)
 
 EXE = $(BIN)/main
@@ -27,7 +27,16 @@ $(BIN)/tp1.out: $(OBJS)
 	$(CC)  -o $(BIN)/tp1.out $(OBJS) $(LIBS)
 
 $(OBJ)/main.o: $(HDRS) $(SRC)/main.cpp
-	$(CC) $(CFLAGS) -o $(OBJ)/main.o $(SRC)/main.cpp   
+	$(CC) $(CFLAGS) -o $(OBJ)/main.o $(SRC)/main.cpp
+
+$(OBJ)/satisfatibilidade.o: $(HDRS) $(SRC)/satisfatibilidade.cpp
+	$(CC) $(CFLAGS) -o $(OBJ)/satisfatibilidade.o $(SRC)/satisfatibilidade.cpp
+
+$(OBJ)/arvoreBinaria.o: $(HDRS) $(SRC)/arvoreBinaria.cpp
+	$(CC) $(CFLAGS) -o $(OBJ)/arvoreBinaria.o $(SRC)/arvoreBinaria.cpp
+
+$(OBJ)/no.o: $(HDRS) $(SRC)/no.cpp
+	$(CC) $(CFLAGS) -o $(OBJ)/no.o $(SRC)/no.cpp
 
 $(OBJ)/expressao.o: $(HDRS) $(SRC)/expressao.cpp
 	$(CC) $(CFLAGS) -o $(OBJ)/expressao.o $(SRC)/expressao.cpp  

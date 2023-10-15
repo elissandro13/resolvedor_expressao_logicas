@@ -1,7 +1,7 @@
-#include <string.h>
 #include <iostream>
 #include "../include/expressao.hpp" 
 #include <sstream>
+#include "../include/satisfatibilidade.hpp"
 
 
 using std::cout;
@@ -10,7 +10,6 @@ using std::cin;
 
 int main(int argc,char ** argv){
 
-    //cout << "asdas" << std::endl;
 
     if (argc != 4){     
         throw std::runtime_error("O programa precisa de 3 argumentos");
@@ -36,7 +35,7 @@ int main(int argc,char ** argv){
     if (op.compare("-a") == 0) {
         cout << ressolver_expressao(p, s) << std::endl;
     } else if(op.compare("-s") == 0) {
-        //cout << satisfatibilidade() << std::endl;
+        satisfatibilidade(p, s);
     } else {
         throw std::runtime_error("Argument passado inválido. Use -a para avaliação das expressões ou -s para testes a satisfabilidade.");
     }

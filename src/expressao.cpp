@@ -3,7 +3,7 @@
 #include <iostream>
 #include <sstream>
 
-
+// Verificar se a string é um dos operadores
 bool isOperador(std::string c) {
 
     if(c.compare("|") == 0) 
@@ -17,6 +17,7 @@ bool isOperador(std::string c) {
 
 };
 
+// Verificar se a string é um número
 bool isNumber(std::string c) {
     if(!isOperador(c) && c.compare(" ") != 0 && c.compare("  ") != 0 && c.compare("(") != 0 && c.compare(")") != 0)
         return true;
@@ -38,7 +39,7 @@ int prioridade(std::string c) {
 
 // Realiza as operações
 int operacao(int a, int b, std::string op) {
-    std::cout << " A: " << a << " " << op << " " << "B : " << b << std::endl;
+    //std::cout << " A: " << a << " " << op << " " << "B : " << b << std::endl;
     char c = op[0];
     switch (c) {
         case '&':
@@ -52,18 +53,18 @@ int operacao(int a, int b, std::string op) {
     }
 }
 
-// Fluxo para diferenciar as operações and e or da negado
+// Fluxo para diferenciar as operações and, or e negado. Chama a função operacao com os parâmetros corretos.
 void ressolve(Pilha<int> *pilha_valores, Pilha<std::string> *pilha_operadores) {
 
     if(pilha_operadores->pegaTopo().compare("~") == 0) {
         pilha_valores->empilha(operacao(pilha_valores->desempilha(), -1, pilha_operadores->desempilha()));
-        std::cout << " Ressultado: " << pilha_valores->pegaTopo() << std::endl;
+        //std::cout << " Ressultado: " << pilha_valores->pegaTopo() << std::endl;
 
     }
 
     else {
         pilha_valores->empilha(operacao(pilha_valores->desempilha(), pilha_valores->desempilha(), pilha_operadores->desempilha()));
-        std::cout << " Ressultado: " << pilha_valores->pegaTopo() << std::endl;
+        //std::cout << " Ressultado: " << pilha_valores->pegaTopo() << std::endl;
     }
 
 }
@@ -73,9 +74,6 @@ int ressolver_expressao(std::string expressao, std::string valores) {
     Pilha<int> pilha_valores;
     Pilha<std::string> pilha_operadores;
 
-
-    std::string::size_type i = 0;
-
     std::string exp = expressao;
 
     std::istringstream ss(exp);
@@ -83,8 +81,8 @@ int ressolver_expressao(std::string expressao, std::string valores) {
 
     while(getline(ss, sub_string, ' ')) {
 
-	    std::string c = sub_string;
-       std::cout << "Olha ai: " << c << std::endl;
+        std::string c = sub_string;
+       //std::cout << "Olha ai: " << c << std::endl;
 
        if(c.compare(" ") == 0) {
             continue;
@@ -92,7 +90,7 @@ int ressolver_expressao(std::string expressao, std::string valores) {
             pilha_operadores.empilha(c);
 
        } else if(c.compare(")") == 0) {
-            std::cout << "Entrou )" << std::endl;
+            //std::cout << "Entrou )" << std::endl;
             while(!pilha_operadores.vazio() && pilha_operadores.pegaTopo().compare("(") != 0) ressolve(&pilha_valores, &pilha_operadores);
             if(!pilha_operadores.vazio()) pilha_operadores.desempilha(); 
                 
@@ -101,7 +99,7 @@ int ressolver_expressao(std::string expressao, std::string valores) {
           if(isNumber(c)) {
                 int pos = std::stoi(c);
                 pilha_valores.empilha(valores[pos] - '0');
-                std::cout << "Valor colocado na pilha: "<< pilha_valores.pegaTopo() << std::endl;
+                //std::cout << "Valor colocado na pilha: "<< pilha_valores.pegaTopo() << std::endl;
           } else {
                 while(isOperador(c) && !pilha_operadores.vazio() && !pilha_valores.vazio() && (prioridade(pilha_operadores.pegaTopo()) > prioridade(c))) 
                     ressolve(&pilha_valores, &pilha_operadores);
@@ -116,44 +114,5 @@ int ressolver_expressao(std::string expressao, std::string valores) {
     }
     while (!pilha_operadores.vazio()) ressolve(&pilha_valores, &pilha_operadores);
     return pilha_valores.pegaTopo();
- /***
 
-    while (i < expressao.size())
-    {
-       char c = sub_string;
-       //std::cout << "Olha ai: " << c << std::endl;
-       switch (c)
-       {
-        case ' ':
-                break;
-
-            case '(':
-                pilha_operadores.empilha(c);
-                break;
-            
-            case ')':
-                while(!pilha_operadores.vazio() && pilha_operadores.pegaTopo() != '(') ressolve(&pilha_valores, &pilha_operadores);
-                if(!pilha_operadores.vazio()) pilha_operadores.desempilha(); 
-                break;
-            
-        
-        default:
-            if(isdigit(c)) {
-                int pos = c - '0';
-                pilha_valores.empilha(valores[pos] - '0');
-
-            } else {
-                
-                while(!pilha_operadores.vazio() && !pilha_valores.vazio() && (prioridade(pilha_operadores.pegaTopo()) > prioridade(c))) 
-                    ressolve(&pilha_valores, &pilha_operadores);
-                pilha_operadores.empilha(c);
-            }
-                break;
-       }
-        i++;
-    }
-    
-    while (!pilha_operadores.vazio()) ressolve(&pilha_valores, &pilha_operadores);
-    return pilha_valores.pegaTopo();
-  ***/
 };
