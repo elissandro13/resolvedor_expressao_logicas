@@ -23,7 +23,7 @@ parâmetro seja “-s”, essa string pode conter os caracteres “e” (existe)
 (para-todo). Caso o problema seja apenas resolver a avaliação de expressão, a
 saída será apenas 0 ou apenas 1. Caso contrário, doiscasos podem ser
 retornados:
-** 0, caso não exista uma expressão que retorne 1.
+* 0, caso não exista uma expressão que retorne 1.
 
 
 
